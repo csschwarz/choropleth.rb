@@ -1,5 +1,5 @@
 require 'json'
-require_relative 'choropleth'
+require 'choropleth'
 
 if ARGV.size < 3
 	puts "USAGE: choropleth datafile gridfile outfile"
@@ -13,6 +13,6 @@ outfile = ARGV[2]
 
 puts "Generating choropleth at #{outfile}..."
 
-Choropleth.new(data, grid).generate.save(outfile)
+Choropleth::Generator.new(data, grid).generate.save(outfile)
 
 puts "Done!"
