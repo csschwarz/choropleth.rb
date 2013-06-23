@@ -1,6 +1,5 @@
-require "rspec"
 require "json"
-require_relative '../choropleth'
+require "spec_helper"
 
 def objectWithCoords(objType, coords)
   JSON.parse({
@@ -54,10 +53,10 @@ gridGeoJson = JSON.generate({
 
 # Tests
 
-describe Choropleth do 
+describe Choropleth::Generator do 
   context "with default options" do
     before(:all) do
-      @choropleth = Choropleth.new(dataGeoJson, gridGeoJson).generate
+      @choropleth = Choropleth::Generator.new(dataGeoJson, gridGeoJson).generate
     end
 
     it "should load all grid features and point data" do
@@ -76,7 +75,7 @@ describe Choropleth do
 
   context "with density mode enabled" do
     before do
-      @choropleth = Choropleth.new(dataGeoJson, gridGeoJson, :mode => "density").generate
+      @choropleth = Choropleth::Generator.new(dataGeoJson, gridGeoJson, :mode => "density").generate
     end
 
     it "should add an area attribute" do

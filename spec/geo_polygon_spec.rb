@@ -1,13 +1,12 @@
-require "rspec"
 require "json"
-require_relative '../geo_polygon'
+require "spec_helper"
 
-describe GeoPolygon do
+describe Choropleth::GeoPolygon do
   before(:all) do
     @diamond = objectWithCoords('Polygon', [[[2, 0], [4, 2], [2, 4], [0, 2], [2, 0]]])
     @claw = objectWithCoords('Polygon', [[[4, 4], [9, 5], [6, 7], [7, 8], [8, 6], [9, 10], [4, 12], [2, 7], [4, 4]]])
-    @diamondPoly = GeoPolygon.new(@diamond)
-    @clawPoly = GeoPolygon.new(@claw)
+    @diamondPoly = Choropleth::GeoPolygon.new(@diamond)
+    @clawPoly = Choropleth::GeoPolygon.new(@claw)
   end
 
   it "initializes with all vertices" do
