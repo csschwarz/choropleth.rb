@@ -46,6 +46,22 @@ module Choropleth
       return intersections % 2 == 1
     end
 
+    def area
+      area = 0
+      (0...@verts.size - 1).each do |i|
+        area += (@verts[i+1][1] + @verts[i][1]) / 2.0 * (@verts[i+1][0] - @verts[i][0])
+      end
+      area.abs
+    end
+
+    def add_density options = {}
+      options = {area_field: "area"}.merge options
+      add_data(options[:area_field] => area) if @data[options[:area_field]].nil?
+      add_data("density" => @data["count"] / @data[options[:area_field]].to_f)
+    end
+
+    private
+
     def crosses_ray?(point, ep1, ep2)
       if ep1[1] < ep2[1] # upward
         return (point[1] >= ep1[1] and point[1] < ep2[1])
@@ -81,12 +97,5 @@ module Choropleth
       false
     end
 
-    def area
-      area = 0
-      (0...@verts.size - 1).each do |i|
-        area += (@verts[i+1][1] + @verts[i][1]) / 2.0 * (@verts[i+1][0] - @verts[i][0])
-      end
-      area.abs
-    end
   end
 end

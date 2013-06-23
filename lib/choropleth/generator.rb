@@ -6,7 +6,7 @@ module Choropleth
 
     # gridJson, dataJson: GeoJSON objects
     def initialize(dataJson, gridJson, options = {})
-      @options = {mode: "count"}.merge options
+      @options = {fields: []}.merge options
 
       data = JSON.parse(dataJson)
       @points = data['features']
@@ -26,14 +26,16 @@ module Choropleth
         @grid_polys.each do |poly|
           if poly.contains_point?(point)
             poly.data["count"] += 1
-            poly.add_data("area" => poly.area) if @options[:mode] == "density" and poly.data["area"].nil?
             break
           end
         end
       end
-      if @options[:mode] == "density"
-        @grid_polys.each { |poly| poly.add_data("density" => poly.data["count"] / poly.data["area"].to_f) }
+
+      # Call 'add_<field>' on each polygon, optionally with options
+      @grid_polys.each do |poly|
+        @options[:fields].each { |field| poly.send *(Hash === field ? ["add_#{field.keys.first}".to_sym, field.values.first] : ["add_#{field}".to_sym]) }
       end
+
       self
     end
 

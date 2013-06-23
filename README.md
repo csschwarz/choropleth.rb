@@ -4,6 +4,7 @@ A tiny Ruby library to generate GeoJSON polygon collections with count, area, an
 
 ## Installation and Usage
 
+(Requires Ruby 1.9+)
 gem install build/choropleth-0.0.1.gem
 
 Usage: ruby cli.rb datafile gridfile outfile

@@ -74,7 +74,7 @@ describe Choropleth::Generator do
 
   context "with density mode enabled" do
     before do
-      @generator = Choropleth::Generator.new(dataGeoJson, gridGeoJson, :mode => "density").generate
+      @generator = Choropleth::Generator.new(dataGeoJson, gridGeoJson, :fields => ["density"]).generate
     end
 
     it "should add an area attribute" do
