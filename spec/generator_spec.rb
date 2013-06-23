@@ -1,4 +1,3 @@
-require "json"
 require "spec_helper"
 
 def objectWithCoords(objType, coords)
@@ -56,17 +55,17 @@ gridGeoJson = JSON.generate({
 describe Choropleth::Generator do 
   context "with default options" do
     before(:all) do
-      @choropleth = Choropleth::Generator.new(dataGeoJson, gridGeoJson).generate
+      @generator = Choropleth::Generator.new(dataGeoJson, gridGeoJson).generate
     end
 
     it "should load all grid features and point data" do
-      @choropleth.points.size.should eq 17
-      @choropleth.grid_polys.size.should eq 5
+      @generator.points.size.should eq 17
+      @generator.grid_polys.size.should eq 5
     end
 
     it "should generate a choropleth with accurate counts" do
       counts = []
-      @choropleth.grid_polys.each do |poly|
+      @generator.grid_polys.each do |poly|
         counts << poly.data['count']
       end
       counts.should eq [2, 3, 2, 2, 4]
@@ -75,18 +74,18 @@ describe Choropleth::Generator do
 
   context "with density mode enabled" do
     before do
-      @choropleth = Choropleth::Generator.new(dataGeoJson, gridGeoJson, :mode => "density").generate
+      @generator = Choropleth::Generator.new(dataGeoJson, gridGeoJson, :mode => "density").generate
     end
 
     it "should add an area attribute" do
-      @choropleth.grid_polys.each do |poly|
+      @generator.grid_polys.each do |poly|
         poly.data["area"].should_not be_nil
       end
     end
     
     it "should calculate the density of each polygon" do
       densities = []
-      @choropleth.grid_polys.each do |poly|
+      @generator.grid_polys.each do |poly|
         densities << poly.data["density"]
       end
       expected = [0.222, 0.030, 0.021, 0.125, 0.242]

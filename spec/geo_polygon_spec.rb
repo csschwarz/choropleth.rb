@@ -1,4 +1,3 @@
-require "json"
 require "spec_helper"
 
 describe Choropleth::GeoPolygon do

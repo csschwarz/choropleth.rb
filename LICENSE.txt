@@ -1,4 +1,4 @@
-Copyright (c) 2013 Chris Schwarz
+Copyright (c) 2013 Audrey Schwarz
 
 MIT License
 
