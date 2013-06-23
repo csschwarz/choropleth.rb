@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'choropleth/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "Choropleth.rb"
+  spec.name          = "choropleth"
   spec.version       = Choropleth::VERSION
   spec.authors       = ["Audrey Schwarz"]
   spec.email         = ["aurantinidin@gmail.com"]
