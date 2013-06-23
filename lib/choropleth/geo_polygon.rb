@@ -92,9 +92,8 @@ module Choropleth
     end
 
     def point_in_bounding_box?(point)
-      return true if (point[0] >= @bbox[:bottomLeft][0] and point[0] <= @bbox[:topRight][0]) and 
-                (point[1] >= @bbox[:bottomLeft][1] and point[1] <= @bbox[:topRight][1])
-      false
+      (point[0] >= @bbox[:bottomLeft][0] and point[0] <= @bbox[:topRight][0]) and 
+        (point[1] >= @bbox[:bottomLeft][1] and point[1] <= @bbox[:topRight][1])
     end
 
   end
